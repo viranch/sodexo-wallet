@@ -16,10 +16,21 @@ void Wallet::init()
 void Wallet::readInventory()
 {
     QSettings s;
-    QMap<QString, QVariant> read = s.value("inventory").toMap();
+    QVariant value = s.value("inventory");
+    if (value.isNull()) {
+        return;
+    }
+
+    QMap<QString, QVariant> read = value.toMap();
+    uint ukey, uval;
+    bool ok;
     inventory.clear();
     foreach(QString key, read.keys()) {
-        inventory[key.toUInt()] = read[key].toUInt();
+        ukey = key.toUInt(&ok);
+        if (!ok) continue;
+        uval = read[key].toUInt(&ok);
+        if (!ok) continue;
+        inventory[ukey] = uval;
     }
     emit walletUpdated(inventory);
 }
