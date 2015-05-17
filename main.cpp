@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("CnV Inc.");
     QCoreApplication::setApplicationName("Sodexo");
     Dialog w;
-    w.show();
+    w.showMaximized();
 
     return a.exec();
 }
