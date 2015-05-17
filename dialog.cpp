@@ -9,6 +9,8 @@ Dialog::Dialog(QWidget *parent) :
 
     currency = QLocale(QLocale::English, QLocale::India).currencySymbol();
 
+    ui->amtEdit->setPrefix(currency+" ");
+
     wallet = new Wallet;
     connect(wallet, SIGNAL(walletUpdated(UintMap)), this, SLOT(on_wallet_updated(UintMap)));
     wallet->init();
@@ -58,7 +60,7 @@ void Dialog::on_wallet_updated(UintMap newInventory)
 void Dialog::on_calcBtn_clicked()
 {
     // input target
-    uint amount = ui->amtEdit->text().toUInt();
+    uint amount = ui->amtEdit->cleanText().toUInt();
 
     // get inventory sorted by coupon amounts
     UintMap walletInventory = wallet->getInventory();
