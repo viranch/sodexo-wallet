@@ -11,6 +11,10 @@ Dialog::Dialog(QWidget *parent) :
 
     ui->amtEdit->setPrefix(currency+" ");
 
+    ui->couponList->header()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->inventoryList->header()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->rechargeTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
     wallet = new Wallet;
     connect(wallet, SIGNAL(walletUpdated(UintMap)), this, SLOT(on_wallet_updated(UintMap)));
     wallet->init();
